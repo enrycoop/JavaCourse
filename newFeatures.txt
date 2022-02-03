@@ -1,0 +1,61 @@
+ref video -> https://www.youtube.com/watch?v=8hA47LxykPo
+
+# Copia delle collection con il metodo 
+List.copyOf(listName); //restituisce una copia della lista ma IMMUTABILE
+-> vale per tutte le collection, SET,MAP ecc
+
+#Files
+Files.readString(path) & Files.writeString(path)
+
+#Predicate.not
+
+predicateFunc.negate() --> può essere scritto con Predicate.not(predicateFunc)
+
+#String utils (java 11)
+
+.isBlank() , 
+.strip() - elimina tutti gli spazi
+.stripLeading()
+.stripTrailing()
+.replace(charToRep, replacement) 
+.lines() -> trasforma una stringa (con '/n') in uno stream su più linee
+.transform(func) - applica la funzione alla stringa
+"%s, %d".formatted(str, num)
+
+#Local Type Inference (java 10)
+uso 'var' come tipo (lo inizializza al volo il compilatore ) SOLO PER VARIABILI LOCALI 
+ad una variabike var NON SI PUO' dare valore null
+
+#Switch Expression (jdk 14)
+
+String dayOfweek = switch(day)  {
+case 0 -> "mon";
+case 1 -> "tue";
+..
+default -> throw new IllegalArgumentException();
+}
+
+# TExt blocks (jdk 15)
+""" 
+stringa 
+multi 
+line
+"""
+
+# Records (jdk 16)
+Riduce la verbosità del costruire una classe Java (crea in automatico costruttori, getter, setter equals, hashcode to string)
+-> se mi serve posso fare degli overwrite
+
+* record Person(String name, String email, String phoneNumber){}
+
+-> pronta per essere usata come classe!
+Nel caso di customizzazione è possibile mettere il codice tra parentesi graffe (come una normalissima classe... quasi -> nota il COMPACT CONSTRUCTOR)
+*
+* record Person(String name, String email, String phoneNumber){
+*   Person {
+*     if(name == null) throw IllegalArgumentException();
+*   }
+* }
+*
+
+

@@ -1,0 +1,225 @@
+##### ENUMERATION
+un particolare oggetto con dei limitati valori assegnabili
+
+enum <name> {
+    VAL1,VAl2,VAl3
+}
+
+è inoltre possibile assegnare ulteriori valori ad ogni singola possibilità (aggiungendo un po' di codice)
+
+è possibile ottenere una Collection di tutti i possibili valori che l'Enum può assumere con .values()
+
+##### ANNOTATION
+Sono dei metadata per il compilatore Java
+es. @Override (dice al compilatore che questo metodo sovrascrive un metodo già definito dalla classe padre)
+
+qualche altra annotazione 
+@Author(name="Sebssekk")
+@SuppressWarning
+
+Per creare custom annotation
+
+@Retention(RetentionPolicy.RUNTIME) // dice al compilatore quando valutare questa annotazione. Può anche essere SOURCE
+@Target(ElementType.TYPE) // specifica a cosa può essere applicata questa annotazione TYPE indica per esempio ad una Classe
+public @interface <AnnotationName>{
+    int value() //significa che è possibile assegnare un valore all'annotazione
+}
+
+##### SERIALIZATION
+Fondamentale per "spedire oggetti" tra applicazioni
+Serialization = creare una rappresentazione BYTES di un oggetto
+
+Prima di tutto un oggetto per esere Serializzabile deve IMPLEMENTARE l'interfaccia 'Serializable'
+Deve essere aggiunto un 'serialVersionUID' (
+
+Se si setta un attributo come TRANSIENT questo non verrà Serializzato/Deserializzato (la variabile esiste ma il suo valore si perde)
+
+##### Concurrency and Threads
+
+Thread = 'lightweight process' lanciare un nuovo thread consuma molte meno risorse che lanciare un nuovo processo. Ogni processo ha almeno 1 thread
+
+Per creare dei Thread è sufficiente estendere dalla classe Thread CREANDO IL METODO run()
+
+Per lanciarlo .start()
+
+--> NOTA esiste anche la possibile di creare un Thread tramite interfaccia 'Runnable' (così si possono creare Thread and derivando.. dato che non si può derivare da più classi)
+[in quel caso l'implementazione è leggermente diversa...]
+
+##### Synchronization
+più Thread che accedono allo stesso oggetto.... servono dei 'lock'
+
+è possibile regolare l'accesso ad un oggetto con la keyword 'synchronized'
+o ad un blocco di codice 'syncronized (this) { ... }'
+
+IN questo caso l'accesso sarà consentito ad un solo Thread per volta (fino a che non ha terminato)
+
+##### Autoboxing
+Autoboxing = Coversione automatica che Java fa tra tipi primitivi e corrispondenti classi wrapper
+(es: int <-> Integer)
+
+int i = 10;
+// Auto box
+Integer iObj = Integer.valueOf(i);
+Character cObj = 'a';
+// Auto unbox
+int i1 = iObj;
+char c = cObj;
+
+##### JDBC - DataBAse connection
+> code...
+Ricordarsi di scaricare il JDBC driver ed aggiungerlo al percorso delle classi java del progetto corrente 
+(in un editor buono è facile...)
+In questo esempio il jdbc driver di postgres (è nella cartella lib)
+
+##### GENERICS
+Riutilizzare lo stesso codice con input (di tipo) diverso ?
+
+Nella creazione di una classe Custom è possibile prevedere che l'utente scelga il tipo di oggetto in input
+
+class GenericsHolder<T>{ <-- Verrà definito in fase di creazione di un'instanza  GenericsHolder<String> es = GenericsHolder<>("aString") 
+    T obj;
+    ...
+}
+
+##### Util & Lang package
+* java.lang è il pacchetto CORE di java (contine definizioni base come Integer, String, Character,Thread, Comparable, Runnable, Exception, Annotazions...)
+non c'è bisogno di importarlo
+* java.util è un altro pacchetto molto importante ma NON importato di default, troviamo:
+- Collections (ArrayList, List HashMap ecc....)
+- ecc..
+
+#### Concurrency Utilities
+> C'è un package apposito java.util.consurrent
+# Executor
+è un'interfaccia standard per definire 'thread-like' sub system (threads pool, async I/O, ... ) -> va poi definita una classe che abbia il metodo .execute(Runnable r)
+# ExecutorService
+un Executor che ha metodi per la gestione della terminazione e metodi che possono produrre un output di tipo Future
+ha già builtin threadpool e altre possibilità di oggetti che gestiscano oggetti Runable
+# Future
+Una particolare classe che rappresenta l'output di un task asynchrono
+posso conrollare lo stato di Future con il metodo .isDone()
+
+
+##### Regular Expression
+C'è un package apposito java.util.regex
+Classi importanti
+*Patter -> il pattern per la regex, bisogna usare il metodo .compile() passando come input il pattern come stringa
+*Matcher -> ritornato dal pattern .matcher() . se trova il Patetrn TRUE se no FALSE
+*PatternSyntaxException 
+
+
+###### SPRING FRAMEWORK
+IL Framework più popolare per web app in Java
+(frontend .jsp .... NON IMPARARLO , per il frontend JS)
+Spring offre la base per ospitare FE, BE, e connessioni con DB
+
+Main Component
+
+*Core -> IoC Container, Events, Resources, i18n, Validation, Data Binding, Type Conversion, SpEL, AOP
+*Testing 
+*Data Access -> Transactions, DAO Support, JDBC, R2DBC, O/R MApping, XML Marshaling
+*Web Servlet -> Spring MVC, WebSocket SockJS, STOMP Messaging
+*Web Reactive -> Spring WebFlux, WebClient, WebSocket
+*Integration -> Remoting JMS, JCA, JMX, Emial, Tasks, Scheduling, Catching
+*Language -> Kotlin, Groovy, Dynamic Languages
+
+# IoC - Inversion of Control
+Invertire il processo di creazione di oggetti -> Non è la classe che ha responsabilità di creare oggetti [ Student jhon = new Student(...)]
+MA la responsabilità viene data al Framework
+--> Dependency Injection è l'implementazione del concetto di IoC
+
+
+
+##### MVC Application (!= da 3 tier layer app)
+Model - View - Controller
+* Controller riceve le richieste dal Browser -> sa che particolare Business Logic eseguire in risposta
+* Model invocato dal controller per eseguire la Business Logic
+* View è la pagina rimandata indietro all'utente (dal Controller)
+
+In breve: Controller riceve una richiesta, trova il Model giusto per soddisfarla, trova la View corretta d arimandare al mittente
+
+SPRING è il framework più popolare per architettura MVC
+
+1) Arriva la richiesta (Browser)
+    Il primo layer che Spring ha è il Dispatcher Servlet
+    Il Dispatcher Servlet ha la conoscenza di tutto
+2) si consulta una Handler Mapping per trovare il giusto Controller
+3) Dispatcher servlet chiama il giusto Controller 
+4) IL controller ritorna Model and View da usare al Dispatcher Servlet
+5) view resolver (è un 'mapping' tra la risposta del controller e le attuali 'views' [jsp o html+js])
+6) view
+
+> Per creare un progetto Spring ---> Spring initializr (start.spring.io)
+dal sito si possono scegliere i dettagli e poi scaricare uno zip con la base del progetto
+
+
+MAVEN -> "Apache Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information."
+[dal sito ufficiale]
+
+Essendo un progetto Maven ha un file pom.xml dove troviamo tutte le dipendenze (una specie di package.json)
+
+# src/main/java
+contiene i CONTROLLER
+è una classe con l'annotazione @Controller
+al suo interno (della classe Controller) ci saranno metodi, uno per ogni risposta.
+
+@GetMapping("/greeting") //questa annotaaione indica che il controller risponderà ad una get su /greeting con il seguente metodo
+public String greeting( @RequestParam(name = "name", required = false, defaultValue= "World") String name, //l'annotazione @RequestParam fa riferimento ad eventuali parametri da catturare nell'url, es /greeting?name=ciao
+    Model model) { // il secondo parametro è il modello che eseguirà la Business logic
+
+    model.addAttribute("name", name); // mando al modello i parametri dell'url
+    return "greeting"; //il nome della view ini risposta (il View risolver farà il mapping tra la string e il file)
+}
+
+
+#src/test/java
+per i test..
+
+#src/main/resources/templates
+per html dinamico
+
+
+
+Per lanciare il progetto, > $ mvn spring-boot:run
+(By default viene lanciato su di un servlet Apache TomCat)
+
+
+
+##### Spring Boot
+
+Spring Boot -> Build RESTfull Web Services
+Diversamente da Spring MVC non c'è la gestione delle views!
+non si usano i Controller ma @RestController
+Nel controller continua ad esserci @RequestMapping(/)
+ma non c'è il retorno di una View, soltanto una raw String (o un JSON o un XML)
+
+
+>>> Extra from the final project
+# @Entity
+posta su di una classe fa si che Spring Boot la consideri come una tabella di un DB
+# @Id
+ID per ogni entry
+# @GeneratedValue(startegy = GenerationType.AUTO)
+Legato ad ID, così verrà generato un id automatico per ogni istanza creata
+
+# @Repository
+una classe con questa annotazione è necessaria per salvare nel DB
+deve essere un'interfaccia che ESTENDE Jparepository<Student, Long> //Student è la classe ceh voglio usare come tabella, Long è il tipo dell'ID
+
+CRUD -> Create Read Update Delete 
+
+## @RestController
+> @Autowired
+  private Studentrepository studentRepository;
+Il controller creerà automaticamente una repository
+
+> @PostMapping("/student/create")
+public Student createStudent (@RequestBody Student st){
+    return studentrepository.save(st);
+}
+
+> @Getmapping("/student/{id}")
+Student getStudent(@PathVariable Long id) {
+    return studentRepository.findById(id).get();
+}
+

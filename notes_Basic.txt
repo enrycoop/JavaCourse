@@ -1,0 +1,302 @@
+Reference video course --> https://www.youtube.com/watch?v=KnEeMj58w3A
+
+##### Primitives..
+Short
+int
+bool
+float
+char
+bytes
+float
+...
+##### Strings
+String aString = "hey!"
+##### basic build
+public class App {
+    public static void main(String[] args) throws Exception {
+        System.out.println("Hello, World!");
+    }
+}
+#### Array
+int[]  anArray;
+anArray = new int[10] // Doppia init!
+-----
+int[] anArray = new int[10]
+int[] bArray = {1,2,3,4,5}
+
+#### Operators
+.... C like
+ ### bit wise
+ ~ --> inverte il pattern (tutti gli 0 in 1 e vice versa)
+ >>, << ---> shift destra, sinistra
+ & . | --> bit AND , OR 
+ ^ --> exclusive OR
+
+#### Contrl flow
+if / else .... C like
+ 
+ ## nested if/else ....
+ 
+ ## Ternary Operator 
+ Come in JS
+ result = < bool-eq > ? < if_true_here > : < if_false_here > //MA SOLO 1 STATEMENT
+ 
+ ## Switch
+ come in C
+
+ switch (<eq_to_check>){
+     case <res_a>:
+        ...
+        break;
+     case <res_b>:
+        ...
+        break;
+    ...
+     default:
+        ...
+        break;
+ }
+
+#### 2D Array
+int arr[][] = {{1,2,3},{4,5,6}}
+#### 3D Array
+int arr[][][] = {{{1,2},{3,4}},{{5,6},{7,8}}}
+
+#### LOOPS
+  
+  # while loop
+    
+    while ( <expression> ){
+        ...
+    }
+
+  ## do while
+    -> C like
+    do {
+        ....
+    } while ( <expression> );
+
+  ## for loop
+    
+    for (int i=0; i< 10 ; i++){
+        ...
+    }
+
+    ===>
+  ### ENHANCED FOR LOOPS
+  //come in Python, si scorre una collection!
+
+  int[] numbers = {1,2,3,4}
+  for (int item : numbers){
+      ....
+  }
+  //item assume il valore del singolo oggetto della collection
+
+  ## Nested for loops 
+   nothing special..
+
+#### COLLECTION
+
+# Set --> Unique eleem, no order (INSIEMI)
+# List --> 
+# Queue --> FIFO Queue
+# ArrayList --> Dinamic Array (accesso tramite index)
+# LInkedLIst --> elementi puntatti, accesso in odine (da testa o coda)
+# TreeSet --> Set ordinato (come un albero)
+# Priority Queue --> out order gicen by priority
+# Stack --> LIFO queue
+
+###ArrayList
+    List<Integer> arrayList = new ArrayList<Integer>(5); 
+    //LIst è l'interfaccia! ArrayList è la classe concreta
+    // così facendo però è possibile cambiare in futuro la classe lasciando la stessa interfaccia.
+    // -> tra parentesi è possibile mettere la dimensione, se non si mette verrà usata quella di default
+    .add(elem) // per aggiungere
+    .get(index) //
+    .remove(index) // per rimuovere
+    .size() //per la dimensione 
+####LInkedLIst
+     LinkedList<String> list = new LinkedList<String>();
+     .add(<elem>) //in coda
+     .addLast(<elem>)
+     .addFirst(<elem>)
+     .add(<pos>,<elem>) // se pos =2 aggiunge dopo il secondo elemento (come terzo)
+     .remove(<pos>) // il conto parte sempre da 0
+     .remove(<elem>)
+     .removeFirst()
+     .removeLast()
+
+#### HASHSET
+è un SET accessibile in " a random fashon" (non viene rispettato l'ordine di inserimento)
+Set<String> hashSet = new HashSet<String>();
+.add(<elem>);
+.remove(<elem>);
+
+#### TREESET
+è un set ma gil elementi inseriti vengono automaticamente ORDINATI
+--> Se si vuole creare un TreeSet di classe user defined è necessario
+specificare un principio di ordinamento nella definizione di tali classi
+
+TreeSet<String> treeSet = new TreeSet<String>();
+treeSet.add(<elem>);
+
+####### MAPS
+
+Per lo storing di 'key-value' (es. Dictonary)
+(le chiavi saranno uniche è tecnicamente si usa un SET per loro, mentre per i valori si usa una LIST)
+
+ # HashTable (1 solo accesso (thread) alla volta - SYNCHRONIZE structure)
+ # HashMap (accesso multiplo / non sync) 
+ # TreeMap (come hashmap MA ORDINATA sulle chiavi)
+ # LinkedHashMAp
+ # Properties (Speciale hashTable ottimizzata per le configurazioni - ha metodi particolari come .loadFromXML / .storeToXML)
+
+#### HASHMAP
+
+HashMap<String,Integer> map = new HashMap<>();
+.put(<key>,<value>);
+.size()
+.containsKey(<key>)
+.containsValue(<value>)
+.get(<key>) // ritorna il value
+.keySet() // ritorna il set delle keys
+
+--> ENTRY
+ogni coppia k,v può essere catturata come un'oggetto "Entry"
+
+for (Entry<String,Integer> entry : map.entrySet()){
+    System.out.println("key: " + entry.getKey()+ ", value: "+ entry.getValue());
+}
+
+##### TREEMAPS
+come le hashmap MA gli inserimenti sono sempre ordinati (per le chiavi).
+la classe scelta per le chiavi deve SEMPRE essere ordinabile
+
+##### Access Modifier
+Queste keyword possono essere usate davanti a tutte le definizioni
+(funzioni, classi, variabili ...)
+
+* PUBLIC -> visibile da [Class - Package - SubClass - World]
+* PROTECTED -> visibile da [Class - Package - SubClass ]
+* - (nessun modifier specificato) -> visibile da [ Class - Package]
+* PRIVATE -> visibile da [Class]
+PS. subclass = classe derivata (child class)
+
+##### INHERITANCE
+la keyword è 'extends' 
+la keyword per il costruttore della classe genitore è 'super()'
+(DEVE essere la prima riga del Costruttore della classe figlia)
+
+JAVA NON SUPPORTA DERIVAZIONE DA PIU' CLASSI
+
+#### ENCAPSULATION
+// Proteggere le proprietà di una classe dall'esterno 
+(mettere attributi e metodi PRIVATE) 
+
+La keyword THIS è utile in caso di omonomia delle variabili
+
+#### ABSTRACTION
+per "namscondere" dettagli dietro ad un funzionamento all'utente
+Una classe astratta NON può essere istanziata. Si può soltanto derivare da essa
+
+Per creare una classe astratta 
+- Bisogna usare la keyword 'abstract'
+- Deve avere almeno un metodo astratto
+
+I metodi astratti DEVONO essere implementatati dalla classe figlia.
+
+##### INTERFACES
+Descrivono come le classi devono essere implementate
+Sono più restrittive delle classi astratte. NON permettono di definire metodi concreti!
+solo definizioni o variabili inizializzate STATICHE
+
+non si usa la keyword extends, ma 'implements'
+
+X una maggiore leggibilità del codice e per far aggiungere un check extra lato compilatore i metodi 'implementati' vanno 
+DENOTATI con la notazione @Override
+
+#### Multiple Inheritance
+non è possibile con le classi... Ma è possible bypassare il problema con le INTERFACE
+è possibile IMPLEMENTARE più interfacce.
+
+è possibile anche ESTENDERE 1 classe e IMPLEMENTARE più interfacce
+
+##### Method Overloading
+stesso nome del metodo ma diversi argomenti e/o diversi return
+
+##### Method Overriding
+[Overloading tra nella derivazione delle classi]
+
+* Se il metodo nella classe padre è definito static e la figlia prova a fare l'Override -> ERRORE
+* Se il metodo override nella figlia viene definito STATIC (e nel padre no) -> ERRORE
+* Se NON è definito STATIC lìoverride va a buon funzionamento
+* Se è STATIC da entrambe le parti -> HIDES
+
+#### STATIC keyword
+Se una propietà (metodo o attributo) viene definito STATIC diventa una proprietà della classe e non dell'oggetto
+Se si aggiunge la keyword FINAL il valore non può più essere modificato
+
+static final double PI = 3.141592653589
+
+Un metodo STATICO PUO' ACCEDERE SOLTANTO AD ATTRIBUTI STATICI!
+
+è possibile definire uno STATIC BLOCK (dove inizializzare tutte le varibili statiche)
+IL CODICE SCRITTO IN QUESTO BLOCCO VIENE ESEGUITO 1 sola volta (anche se si creano più oggetti)
+
+##### JAVA EXCEPTION
+Exception != Error 
+Exception è un tipo di errore da cui il programma può essere ripreso se gestite dallo sviluppatore.
+
+Error -> Il developer non ha nessun controllo su questi tipi di errori
+
+Checked Exception (es I/O Exception)
+VANNO GESTITE per forza, altrimenti non c'è nemmeno compilazione
+ho sono gestite "in loco" oppure la classe delle "rimandare" la gestione alla runtime chiamante
+
+# DEfinizione di una eccezione
+Di default un'eccezione custo è CHECKED. Basta estendere la classe Exception
+
+##### Exception Handling
+Try / catch / finally block (js like)
+
+catch (<ExceptionType> <name>){ //diversi block per diverse eccezioni
+    ...
+}
+
+Per catturarne più di una |
+catch(<ExceptionType1>|<ExceptionType2> <name>){...}
+
+catch generico 
+catch (Exception <name>){}
+
+#### Equals & Hashcode
+.equals() & .hashCode() sono metodi della classe Object (che la classe genitore di OGNI classe in Java) -> ogni oggetto dispone di questi metodi
+
+--> Se si creano classi custom (e si intende usare questi metodi ) VANNO OVERWRITTEN!! (c'è un metodo di default ma non è quello che potrebbe servire)
+
+> .equals() di default controlla l'indirizzo di memoria. 2 oggetti della stessa classe con caratteristiche UGUALI in questo modo non saranno mai considerati UGUALI
+(essendo 2 istanze hanno indirizzi di memopria diversi)
+VA riscritto il metodo.
+
+Quando si modifica equals è bene modificare anche hashCode()
+-> ritorna un intero. Ogetti uguali dovrebbero ritornare lo stesso numero 
+
+OGGETTI DIVERSI NON SONO TENUTI A RITORNATE INT DIVERSI. MA QUESTO DEGRADA LE PERFORMACE DELLA HASHTABLE
+
+#### COMPARABLE
+è un interfaccia. implementare per una classe l'interfaccia COMPARABLE significa poter ordinare un'eventuale collezione
+di istanze di tale classe.
+
+class Student implements Comparable<Student>{
+    ...
+} 
+
+
+======> NOTA
+come parametro di una funzione è possibile usare i 3 puntio (...) per indicare un numero n di possibili parametri (come * in python)
+(sono in forma di array)
+
+public int getRes (int... numbers){
+    for (int i : numbers){ .. }
+}
+
